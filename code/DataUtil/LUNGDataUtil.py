@@ -29,8 +29,21 @@ def collate_fn(batch):
     for img, target in batch:
         images.append(img)
         
-        labels.append(target[0].clone().detach())
-        boxes.append(target[1].clone().detach())
+        if target[0].numel() > 0:  # 确保 labels 不为空
+            labels.append(target[0].clone().detach())
+        if target[1].numel() > 0:  # 确保 boxes 不为空
+            boxes.append(target[1].clone().detach())
+
+    # 如果 labels 或 boxes 是空的，则创建一个空的张量
+    if len(labels) > 0:
+        labels = torch.cat(labels, dim=0)  # 拼接所有标签张量
+    else:
+        labels = torch.empty(0, dtype=torch.long)
+
+    if len(boxes) > 0:
+        boxes = torch.cat(boxes, dim=0)  # 拼接所有边界框张量
+    else:
+        boxes = torch.empty(0, dtype=torch.float32)
 
     return torch.stack(images), (labels, boxes)
 

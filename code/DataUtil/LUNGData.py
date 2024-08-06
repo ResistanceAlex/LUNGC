@@ -39,7 +39,7 @@ class LungNoduleDataset(Dataset):
     def __getitem__(self, idx):
         img_name = self.image_files[idx]
         img_path = os.path.join(self.images_dir, img_name)
-        label_path = os.path.join(self.labels_dir, img_name.replace('.png', '.txt'))
+        label_path = os.path.join(self.labels_dir, img_name.replace('.jpg', '.txt'))
         
         image = cv2.imread(img_path)
         if image is None:
