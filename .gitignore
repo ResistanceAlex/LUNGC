@@ -1,4 +1,5 @@
 /ctdata
 /dataset
 /dataset_old
-/simple_yolo_model.pth
+/Result
+/code/DataUtil/__pycache__
